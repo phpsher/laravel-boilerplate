@@ -52,7 +52,7 @@ services:
             - laravel
 
     redis:
-        container_name: redis-db
+        container_name: redis-cache
         image: redis:8-alpine
         networks:
             - laravel
