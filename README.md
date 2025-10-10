@@ -10,15 +10,10 @@
     - `redis:8-alpine`
     - `rabbitmq:3-management-alpine`
 
-2. **JWT-аутентификация**:
-    - Используется [Laravel Sanctum](https://laravel.com/docs/sanctum)
-    - Покрыта тестами
-
-3. **Встроенные классы для упрощения написания кода:**
+2. **Встроенные классы для упрощения написания кода:**
     - `Enum`: `HttpStatus` — содержит HTTP статус-коды
     - `Trait`: `ResponseTrait` — обёртка над `response()->json()` для упрощения возврата API-ответов
     - `Exceptions`:
         - `InternalServerErrorException`
         - `InvalidCredentialsException`
 
-4. **Сервисы, репозитории, контракты для AuthController**
