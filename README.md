@@ -1,9 +1,9 @@
-# 💻 Мой шаблон проекта Laravel
+# 💻 Laravel boilerplate
 
-## Он включает в себя:
+## Используя данный репозиторий вы получаете -:
 
-1. **Лёгкую сборку Docker-контейнеров**:
-    - `php:8.3-fpm-alpine`
+1. **Сборку Docker-контейнеров**:
+    - `php:8.4-fpm-alpine`
     - `nginx:alpine`
     - `postgres:15-alpine`
     - `pgadmin4`
