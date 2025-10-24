@@ -1,6 +1,6 @@
 services:
     app:
-        container_name: laravel-app
+        container_name: app
         build:
             dockerfile: docker/php/Dockerfile
         restart: unless-stopped
@@ -8,54 +8,41 @@ services:
         volumes:
             - ./:/var/www
         depends_on:
-            - postgres
+            - db
             - redis
         networks:
-            - laravel
+            - app-net
 
     nginx:
         image: nginx:alpine
         restart: unless-stopped
         ports:
-            - "8989:80"
+            - "8000:80"
         volumes:
             - ./:/var/www
             - ./docker/nginx/:/etc/nginx/conf.d/
         networks:
-            - laravel
+            - app-net
 
-    postgres:
+    db:
         image: postgres:15-alpine
         restart: unless-stopped
         environment:
             POSTGRES_DB: ${DB_DATABASE:-laravel}
-            POSTGRES_USER: ${DB_USERNAME:-username}
-            POSTGRES_PASSWORD: ${DB_PASSWORD:-userpass}
+            POSTGRES_USER: ${DB_USERNAME:-laravel}
+            POSTGRES_PASSWORD: ${DB_PASSWORD:-laravel}
         volumes:
             - ./.docker/postgres/data:/var/lib/postgresql/data
         ports:
             - "5432:5432"
         networks:
-            - laravel
-
-    pgadmin:
-        image: dpage/pgadmin4
-        restart: unless-stopped
-        ports:
-            - "8080:80"
-        environment:
-            PGADMIN_DEFAULT_EMAIL: admin@example.com
-            PGADMIN_DEFAULT_PASSWORD: admin
-        depends_on:
-            - postgres
-        networks:
-            - laravel
+            - app-net
 
     redis:
         container_name: redis-cache
         image: redis:8-alpine
         networks:
-            - laravel
+            - app-net
 
     rabbitmq:
         image: rabbitmq:3-management-alpine
@@ -63,8 +50,8 @@ services:
             - "15672:15672"
             - "5672:5672"
         networks:
-            - laravel
+            - app-net
 
 networks:
-    laravel:
+    app-net:
         driver: bridge
