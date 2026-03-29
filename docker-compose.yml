@@ -32,7 +32,7 @@ services:
             POSTGRES_USER: ${DB_USERNAME:-laravel}
             POSTGRES_PASSWORD: ${DB_PASSWORD:-laravel}
         volumes:
-            - ./.docker/postgres/data:/var/lib/postgresql/data
+            - ./docker/postgres/data:/var/lib/postgresql/data
         ports:
             - "5432:5432"
         networks:
