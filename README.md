@@ -1,19 +1,17 @@
-# 💻 Laravel boilerplate
+# 📃 Laravel boilerplate
 
-## Используя данный репозиторий вы получаете -:
+## Используя данный репозиторий вы получаете:
 
 1. **Сборку Docker-контейнеров**:
-    - `php:8.4-fpm-alpine`
+    - `php:8.5-fpm`
     - `nginx:alpine`
     - `postgres:15-alpine`
-    - `pgadmin4`
     - `redis:8-alpine`
     - `rabbitmq:3-management-alpine`
 
-2. **Встроенные классы для упрощения написания кода:**
-    - `Enum`: `HttpStatus` — содержит HTTP статус-коды
-    - `Trait`: `ResponseTrait` — обёртка над `response()->json()` для упрощения возврата API-ответов
+2. **Некоторые элементы, которые могут ускорить разработку:**
+    - `App\Traits\ResponseTrait` — обёртка над `JsonResponse` для упрощения возврата API-ответов
     - `Exceptions`:
         - `InternalServerErrorException`
-        - `InvalidCredentialsException`
+    - `Makefile` - позволяет легко взаимодействовать с Docker, без написания полных комманд
 
