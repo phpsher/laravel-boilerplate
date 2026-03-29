@@ -10,13 +10,15 @@ trait ResponseTrait
 {
     protected function success(
         string $message = 'success',
-        mixed  $data = null,
-        int    $statusCode = 200
+        mixed $data = null,
+        int $statusCode = 200
     ): JsonResponse
     {
-        $response = ['message' => $message];
+        $response = [
+            'message' => $message,
+        ];
 
-        if ($data instanceof LengthAwarePaginator || $data instanceof Paginator) {
+        if ($data instanceof LengthAwarePaginator) {
             $response['data'] = $data->items();
 
             $response['meta'] = [
@@ -35,6 +37,19 @@ trait ResponseTrait
                 'next' => $data->nextPageUrl(),
             ];
 
+        } elseif ($data instanceof Paginator) {
+            $response['data'] = $data->items();
+
+            $response['meta'] = [
+                'current_page' => $data->currentPage(),
+                'per_page' => $data->perPage(),
+            ];
+
+            $response['links'] = [
+                'prev' => $data->previousPageUrl(),
+                'next' => $data->nextPageUrl(),
+            ];
+
         } else {
             $response['data'] = $data;
         }
@@ -42,11 +57,10 @@ trait ResponseTrait
         return response()->json($response, $statusCode);
     }
 
-
     protected function error(
         string $message = 'error',
-        mixed  $errors = null,
-        int    $statusCode = 500
+        mixed $errors = null,
+        int $statusCode = 500
     ): JsonResponse
     {
         return response()->json([
