@@ -41,5 +41,7 @@ logs:
 test:
 	docker-compose exec $(PHP_CONTAINER) php artisan test
 
+exec:
+	docker-compose exec $(PHP_CONTAINER) bash
 
 .PHONY: up down restart build bash artisan migrate seed composer logs test
