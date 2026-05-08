@@ -22,20 +22,6 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         $exceptions->renderable(function (Throwable $e, Illuminate\Http\Request $request) {
-            if ($request->is('api/*')) {
-                $status = 500;
 
-                if ($e instanceof ModelNotFoundException) {
-                    $status = HttpStatus::NOT_FOUND->value;
-                }
-
-                if ($e instanceof InternalServerErrorException) {
-                    $status = HttpStatus::INTERNAL_SERVER_ERROR->value;
-                }
-
-                return response()->json([
-                    'error' => $e->getMessage(),
-                ], $status);
-            }
         });
     })->create();
